@@ -3,7 +3,6 @@ import { useRef, useState } from "react";
 import Modal from "../shared/Modal";
 import Form from "./Form";
 import { useRouter } from "next/navigation";
-import axios from "axios";
 
 export interface Data {
   data: GuestBook[];
@@ -55,7 +54,16 @@ const GuestBook = ({ data }: Data) => {
   };
 
   const onClickDeleteBtn = async (id: string) => {
-    const deleteData = await axios.delete("/api/guestbook", { id: id });
+    await fetch(`api/guestbook`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: id,
+      }),
+    });
+    router.refresh();
   };
 
   const title = (
