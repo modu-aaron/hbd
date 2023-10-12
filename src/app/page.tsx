@@ -1,4 +1,4 @@
-import GuestBook from "../components/GuestBook";
+import GuestBook from "../components/main/GuestBook";
 import prisma from "../lib/prisma";
 
 export default async function Home() {
@@ -28,7 +28,7 @@ export default async function Home() {
       </div>
       <div className="flex flex-1 max-[700px]:flex-col items-center space-y-2 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:space-y-0">
         <div className="flex flex-col items-center pt-8">
-          {/* <video
+          <video
             className="rounded-full object-cover h-60 w-60"
             loop
             autoPlay
@@ -36,7 +36,7 @@ export default async function Home() {
             muted
           >
             <source src="/intro.mp4" type="video/mp4" />
-          </video> */}
+          </video>
           <h3 className="pt-4 pb-2 text-2xl leading-8 font-bold tracking-tight">
             황다롱
           </h3>

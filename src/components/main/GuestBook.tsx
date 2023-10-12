@@ -1,9 +1,9 @@
 "use client";
-import axios from "axios";
-import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
-import Modal from "./shared/Modal";
+import Modal from "../shared/Modal";
 import Form from "./Form";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
 export interface Data {
   data: GuestBook[];
@@ -26,6 +26,7 @@ const GuestBook = ({ data }: Data) => {
   const [id, setId] = useState("");
   const [message, setMessage] = useState("");
   const confirmPwRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   const onClickDeleteIcon = (entry: GuestBook) => {
     setIsOpen(!isOpen);
@@ -54,7 +55,7 @@ const GuestBook = ({ data }: Data) => {
   };
 
   const onClickDeleteBtn = async (id: string) => {
-    console.log(id);
+    const deleteData = await axios.delete("/api/guestbook", { id: id });
   };
 
   const title = (
@@ -108,7 +109,7 @@ const GuestBook = ({ data }: Data) => {
       onClick={() => onClickDeleteBtn(id)}
       className="w-1/2 py-2 rounded-md bg-white dark:bg-gray-800 border border-gray-800 dark:border-gray-300 disabled:text-gray-400"
     >
-      {isUpdate ? "수정하기" : "삭제하기"}
+      삭제하기
     </button>
   );
   return (
