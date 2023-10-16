@@ -1,7 +1,7 @@
 import Cover from "@/components/shared/Cover";
 import Title from "@/components/shared/Title";
-import GuestBook from "../components/main/GuestBook";
 import prisma from "../lib/prisma";
+import GuestBookView from "@/components/main/view";
 
 export default async function Home() {
   const getEntries = async () => {
@@ -20,7 +20,9 @@ export default async function Home() {
   const data = await getEntries();
   return (
     <Cover>
-      <Title title="Today`s Dahye BirthDay 🌟" />
+      <div>
+        <Title title="Today`s Dahye BirthDay 🎉" />
+      </div>
       <div className="flex flex-1 max-[700px]:flex-col items-center space-y-2 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:space-y-0">
         <div className="flex flex-col items-center pt-8">
           <video
@@ -63,7 +65,7 @@ export default async function Home() {
             </a>
           </div>
         </div>
-        {data && <GuestBook data={data} />}
+        {data && <GuestBookView data={data} />}
       </div>
     </Cover>
   );
