@@ -3,8 +3,8 @@
 import { Disclosure } from "@headlessui/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import Logo from "./Icons/Logo";
 import ThemeButton from "./ThemeButton";
+import Icon from "@/components/Icons/Icon";
 
 const Navbar = () => {
   const pathName = usePathname() || "/";
@@ -18,7 +18,7 @@ const Navbar = () => {
                 <div className="flex items-center">
                   <Link href="/">
                     <h1 className="text-2xl font-medium flex gap-2 items-center">
-                      <Logo />
+                      <Icon.Logo />
                       <span>HBDY</span>
                     </h1>
                   </Link>
