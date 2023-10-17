@@ -20,10 +20,8 @@ export default async function Home() {
   const data = await getEntries();
   return (
     <Cover>
-      <div>
-        <Title title="Today`s Dahye BirthDay 🎉" />
-      </div>
-      <div className="flex flex-1 max-[700px]:flex-col items-center space-y-2 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:space-y-0">
+      <Title title="Today`s Dahye BirthDay 🎉" />
+      <div className="flex flex-1 max-[700px]:flex-col space-y-2 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:space-y-0">
         <div className="flex flex-col items-center pt-8">
           <video
             className="rounded-full object-cover h-60 w-60"
