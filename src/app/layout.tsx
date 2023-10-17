@@ -25,11 +25,11 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         style={{ height: "100dvh" }}
-        className={`${stylish.variable} overflow-scroll font-sh bg-white text-black dark:bg-[#090908] dark:text-white selection:bg-gray-50 dark:selection:bg-gray-800`}
+        className={`${stylish.variable} max-w-6xl flex flex-col mx-auto font-sh bg-white text-black dark:bg-[#090908] dark:text-white selection:bg-gray-50 dark:selection:bg-gray-800`}
       >
         <Providers>
           <Navbar />
-          <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-1 flex-col">
+          <main className="w-full h-full px-4 sm:px-6 lg:px-8 flex flex-1 flex-col">
             {children}
           </main>
         </Providers>
