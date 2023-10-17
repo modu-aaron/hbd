@@ -20,9 +20,11 @@ interface GuestBook {
 }
 
 const GuestBookView = ({ data }: Data) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isUpdateOpen, setIsUpdateOpen] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isMatch, setIsMatch] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);
+  const [isDelete, setIsDelete] = useState(false);
   const [isTest, setIsTest] = useState(0);
   const [pw, setPw] = useState("");
   const [id, setId] = useState("");
@@ -32,13 +34,22 @@ const GuestBookView = ({ data }: Data) => {
   const router = useRouter();
 
   const onClickDeleteIcon = (entry: GuestBook) => {
-    setIsOpen(!isOpen);
+    setIsDeleteOpen(true);
+    setIsDelete(true);
     setPw(entry.password);
     setId(entry.id);
   };
 
-  const onClose = () => {
-    setIsOpen(!isOpen);
+  const onCloseDeleteModal = () => {
+    setIsDeleteOpen(false);
+    setIsDelete(false);
+    setIsMatch(false);
+    setIsTest(0);
+    confirmPwRef.current = null;
+  };
+
+  const onCloseUpdateModal = () => {
+    setIsUpdateOpen(false);
     setIsUpdate(false);
     setIsMatch(false);
     setIsTest(0);
@@ -46,8 +57,8 @@ const GuestBookView = ({ data }: Data) => {
   };
 
   const onClickUpdateIcon = (entry: GuestBook) => {
-    setIsUpdate(!isUpdate);
-    setIsOpen(!isOpen);
+    setIsUpdate(true);
+    setIsUpdateOpen(true);
     setPw(entry.password);
     setId(entry.id);
     setMessage(entry.message);
@@ -77,8 +88,10 @@ const GuestBookView = ({ data }: Data) => {
           "Content-Type": "application/json",
         },
       });
-      setIsOpen(false);
-      setIsUpdate(false);
+      setIsDeleteOpen(false);
+      setIsDelete(false);
+      setIsMatch(false);
+      setIsTest(0);
       router.refresh();
       return await response.json();
     } catch (error) {
@@ -95,8 +108,10 @@ const GuestBookView = ({ data }: Data) => {
         },
       });
 
-      console.log(id, message);
-      setIsOpen(false);
+      setIsDeleteOpen(false);
+      setIsUpdate(false);
+      setIsMatch(false);
+      setIsTest(0);
       router.refresh();
       return await response.json();
     } catch (error) {
@@ -181,39 +196,50 @@ const GuestBookView = ({ data }: Data) => {
       <div className="w-full flex-1 pt-8 dark:prose-invert xl:col-span-2 pb-6">
         <Intro />
 
-        <div className="w-full">
-          <div className="max-w-[600px] mx-auto">
-            <Form />
-            {data.length > 0 && (
-              <div className="flex flex-col space-y-2 bg-gray-50 dark:bg-gray-800 p-4 rounded-md">
-                {data.map((entry) => (
-                  <div key={entry.id} className="w-full flex gap-2 text-base">
-                    <p className="whitespace-nowrap">{`${entry.username}:`}</p>
-                    <p className="w-full break-words">{entry.message}</p>
-                    <div className="flex gap-2">
-                      <div onClick={() => onClickDeleteIcon(entry)}>
-                        <Icon.DeleteIcon />
-                      </div>
-                      <div onClick={() => onClickUpdateIcon(entry)}>
-                        <Icon.UpdateIcon />
-                      </div>
+        <div className="max-w-[600px] mx-auto">
+          <Form />
+          {data.length > 0 && (
+            <div className="flex flex-col space-y-2 bg-gray-50 dark:bg-gray-800 p-4 rounded-md">
+              {data.map((entry) => (
+                <div key={entry.id} className="w-full flex gap-2 text-base">
+                  <p className="whitespace-nowrap">{`${entry.username}:`}</p>
+                  <p className="w-full break-words">{entry.message}</p>
+                  <div className="flex gap-2">
+                    <div onClick={() => onClickDeleteIcon(entry)}>
+                      <Icon.DeleteIcon />
+                    </div>
+                    <div onClick={() => onClickUpdateIcon(entry)}>
+                      <Icon.UpdateIcon />
                     </div>
                   </div>
-                ))}
-              </div>
-            )}
-          </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
-      <Modal
-        title={title}
-        isOpen={isOpen}
-        onClose={onClose}
-        className="py-4 px-4 flex flex-col gap-4"
-      >
-        {isUpdate ? updateContent : deleteContent}
-        {isUpdate ? updateFooter : deleteFooter}
-      </Modal>
+      {isDelete && (
+        <Modal
+          title={title}
+          isOpen={isDeleteOpen}
+          onClose={onCloseDeleteModal}
+          className="py-4 px-4 flex flex-col gap-4"
+        >
+          {deleteContent}
+          {deleteFooter}
+        </Modal>
+      )}
+      {isUpdate && (
+        <Modal
+          title={title}
+          isOpen={isUpdateOpen}
+          onClose={onCloseUpdateModal}
+          className="py-4 px-4 flex flex-col gap-4"
+        >
+          {updateContent}
+          {updateFooter}
+        </Modal>
+      )}
     </>
   );
 };
