@@ -6,6 +6,7 @@ import Cover from "@/components/shared/Cover";
 import Title from "@/components/shared/Title";
 import Icon from "@/components/Icons/Icon";
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 
 const TalkTalkView = () => {
   const { messages, input, handleInputChange, handleSubmit } = useChat({
@@ -24,49 +25,39 @@ const TalkTalkView = () => {
       <Title title="DaHye Bot 🤖" />
       <div className="flex flex-1 w-full space-y-2">
         <div
-          className={`w-full flex-1 dark:prose-invert xl:col-span-2 pb-6 relative`}
+          className={`w-full flex-1 dark:prose-invert xl:col-span-2 pb-12 relative`}
         >
           {messages.length !== 0 ? (
             <h1 className="pt-5 xl:w-2/3 w-4/5 pb-10 space-y-5 mx-auto">
               {messages.map((message) => (
                 <div key={message.id} className="w-full" ref={messagesEndRef}>
                   {message.role === "user" ? (
-                    <div className="flex items-center gap-x-2">
-                      <div className="bg-gray-500 h-8 w-8 rounded-full">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                          className="h-8 w-8 text-white"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
+                    <div className="flex gap-x-2">
+                      <div className="h-8 w-8 rounded-full">
+                        <Image
+                          src={"/user.png"}
+                          alt="User"
+                          width={32}
+                          height={32}
+                          className="rounded-full bg-gray-200"
+                        />
                       </div>
-                      <p className="rounded-lg p-3 w-full border-gray-500 border-2 text-sm">
+                      <p className="rounded-lg p-3 w-full border-gray-500/30 text-neutral-900 dark:text-neutral-100 border-2 text-sm">
                         {message.content}
                       </p>
                     </div>
                   ) : (
                     <div className="flex gap-x-2">
-                      <div className="bg-sky-500 h-8 w-8 rounded-full">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                          className="h-8 w-8 text-white"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
+                      <div className="h-8 w-8 rounded-full">
+                        <Image
+                          src={"/me.png"}
+                          alt="AI"
+                          width={32}
+                          height={32}
+                          className="bg-gray-700 rounded-full"
+                        />
                       </div>
-                      <p className="rounded-lg p-3 w-full border-gray-500 border-2 text-sm">
+                      <p className="rounded-lg p-3 w-full border-sky-500/30 text-neutral-900 dark:text-neutral-100 border-2 text-sm">
                         {message.content}
                       </p>
                     </div>
@@ -77,7 +68,7 @@ const TalkTalkView = () => {
           ) : (
             <div className="w-full flex flex-col items-center gap-2 justify-center pt-8">
               <h1 className="font-bold text-2xl text-gray-900 dark:text-white">
-                모든 궁금증을 풀어보세요 🌟
+                궁금한걸 질문해봐요❓
               </h1>
               <span>생일이라 바쁜 다롱이를 대신해 알려줄게요 😉</span>
             </div>
@@ -99,7 +90,7 @@ const TalkTalkView = () => {
               />
               <button
                 type="submit"
-                className="absolute bg-sky-500 p-2 rounded-lg right-0 mr-5"
+                className="absolute bg-sky-500/80 dark:bg-sky-500/50 p-2 rounded-lg right-0 mr-5"
               >
                 <Icon.SubmitIcon />
               </button>

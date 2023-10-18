@@ -19,7 +19,7 @@ const Navbar = () => {
                   <Link href="/">
                     <h1 className="text-2xl font-medium flex gap-2 items-center">
                       <Icon.Logo />
-                      <span>HBDY</span>
+                      <span>HBD</span>
                     </h1>
                   </Link>
                 </div>
@@ -30,7 +30,7 @@ const Navbar = () => {
                     prefetch
                     className={`${
                       pathName === "/"
-                        ? "border-gray-500 dark:text-white h-full inline-flex items-center px-1 pt-1 border-b-2 text-md font-medium"
+                        ? "border-gray-500 dark:text-white inline-flex items-center border-b-2 text-md font-medium"
                         : ""
                     }`}
                   >
@@ -41,7 +41,7 @@ const Navbar = () => {
                     prefetch
                     className={`${
                       pathName === "/talktalk"
-                        ? "border-gray-500 dark:text-white h-full inline-flex items-center px-1 pt-1 border-b-2 text-md font-medium"
+                        ? "border-gray-500 dark:text-white inline-flex items-center border-b-2 text-md font-medium"
                         : ""
                     }`}
                   >
@@ -52,7 +52,7 @@ const Navbar = () => {
                     prefetch
                     className={`${
                       pathName === "/gallery"
-                        ? "border-gray-500 dark:text-white h-full inline-flex items-center px-1 pt-1 border-b-2 text-md font-medium"
+                        ? "border-gray-500 dark:text-white inline-flex items-center border-b-2 text-md font-medium"
                         : ""
                     }`}
                   >
