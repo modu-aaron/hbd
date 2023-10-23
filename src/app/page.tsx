@@ -1,70 +1,229 @@
-import Cover from "@/components/shared/Cover";
-import Title from "@/components/shared/Title";
-import prisma from "../lib/prisma";
-import GuestBookView from "@/components/main/view";
+"use client";
+import Lenis from "@studio-freight/lenis";
+import {
+  useScroll,
+  useTransform,
+  motion,
+  MotionValue,
+  useMotionValue,
+  animate,
+  useAnimation,
+} from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 
-export default async function Home() {
-  const getEntries = async () => {
-    const data = await prisma.guestbook.findMany({
-      take: 50,
-      orderBy: {
-        created_at: "desc",
-      },
+const images = [
+  "1.jpg",
+  "2.jpg",
+  "3.jpg",
+  "4.jpg",
+  "5.jpg",
+  "6.jpg",
+  "7.jpg",
+  "8.jpg",
+  "9.jpg",
+  "10.jpg",
+  "11.jpg",
+  "12.jpg",
+];
+
+const Column = ({ images, y }: { images: string[]; y?: MotionValue }) => {
+  return (
+    <motion.div
+      style={{ y }}
+      className="column relative h-full w-[25%] min-w-[80px] sm:min-w-fit flex flex-col gap-[2vw]"
+    >
+      {images.map((src, index) => {
+        return (
+          <div
+            key={index}
+            className="imageContainer relative h-full w-full rounded-[1vw] overflow-hidden"
+          >
+            <Image
+              src={`/images/${src}`}
+              fill
+              priority
+              alt="image"
+              className="object-cover"
+            />
+          </div>
+        );
+      })}
+    </motion.div>
+  );
+};
+
+const HomePage = () => {
+  const container = useRef(null);
+  const [dimension, setDimension] = useState({ width: 0, height: 0 });
+  const count = useMotionValue(0);
+  const rounded = useTransform(count, Math.round);
+  const [showDiv, setShowDiv] = useState(false);
+  const [textColor, setTextColor] = useState("hsl(180, 90%, 70%)");
+
+  const { scrollYProgress } = useScroll({
+    target: container,
+    offset: ["start end", "end start"],
+  });
+
+  const { height } = dimension;
+  const y = useTransform(scrollYProgress, [0, 1], [0, height * 2]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, height * 3.3]);
+  const y3 = useTransform(scrollYProgress, [0, 1], [0, height * 1.25]);
+  const y4 = useTransform(scrollYProgress, [0, 1], [0, height * 3]);
+
+  useEffect(() => {
+    const animation = animate(count, 25, { duration: 3 });
+
+    const unsubscribe = count.onChange((currentCount) => {
+      const baseHue = 180;
+      const range = 90;
+      const progress = baseHue - range / 2 + (currentCount / 25) * range;
+      const newColor = `hsl(${progress}, 90%, 70%)`;
+      setTextColor(newColor);
+    });
+    return () => {
+      unsubscribe();
+      animation.stop();
+    };
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = rounded.onChange((value) => {
+      if (value === 25) {
+        setShowDiv(true);
+      }
     });
 
-    return data;
-  };
+    return () => {
+      unsubscribe();
+    };
+  }, [rounded]);
 
-  const revalide = 60;
+  useEffect(() => {
+    const lenis = new Lenis();
 
-  const data = await getEntries();
+    const raf = (time: number) => {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    };
+
+    const resize = () => {
+      setDimension({ width: window.innerWidth, height: window.innerHeight });
+    };
+
+    window.addEventListener("resize", resize);
+    requestAnimationFrame(raf);
+    resize();
+
+    return () => {
+      window.removeEventListener("resize", resize);
+      lenis.destroy();
+    };
+  }, []);
+
+  //----------card
   return (
-    <Cover>
-      <Title title="Today`s Dahye BirthDay 🎉" />
-      <div className="flex flex-1 max-[700px]:flex-col space-y-2 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:space-y-0">
-        <div className="flex flex-col items-center pt-8">
-          <video
-            className="rounded-full object-cover h-60 w-60"
-            loop
-            autoPlay
-            playsInline
-            muted
+    <div style={{ height: "100dvh" }}>
+      <div
+        style={{ height: "100dvh" }}
+        className="flex justify-center items-center bg-white dark:bg-[#090908]"
+      >
+        <motion.div className="w-full h-full flex items-center justify-center bg-white dark:bg-[#090908]">
+          <motion.p
+            style={{ color: textColor }}
+            initial={{ opacity: 1, scale: 1 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.5,
+              ease: [0, 0.71, 0.2, 1.01],
+            }}
+            className="font-bold relative text-[130px]"
           >
-            <source src="/intro.mp4" type="video/mp4" />
-          </video>
-          <h3 className="pt-4 pb-2 text-2xl leading-8 font-bold tracking-tight">
-            황다롱
-          </h3>
-          <p className="text-gray-500 text-[18px] dark:text-gray-300 text-center">
-            안녕 생일을 맞이한 다롱이야 올해도 잘부탁해❤️
-          </p>
-
-          <div className="flex space-x-5 pt-6 items-center">
-            <a
-              href="https://instagram.com/darong_hye?igshid=MzRlODBiNWFlZA=="
-              target="_blank"
+            {rounded}
+          </motion.p>
+          {showDiv && (
+            <motion.div
+              className="absolute bottom-12 flex flex-col items-center"
+              style={{ stroke: textColor }}
+              initial={{ y: 0 }}
+              animate={{ y: 20 }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+              }}
             >
+              <p style={{ color: textColor }}>Scroll Down</p>
               <svg
-                viewBox="0 0 1024 1024"
-                fill="currentColor"
-                className="w-8 h-8 text-gray-500 hover:text-gray-600"
-              >
-                <path d="M512 378.7c-73.4 0-133.3 59.9-133.3 133.3S438.6 645.3 512 645.3 645.3 585.4 645.3 512 585.4 378.7 512 378.7zM911.8 512c0-55.2.5-109.9-2.6-165-3.1-64-17.7-120.8-64.5-167.6-46.9-46.9-103.6-61.4-167.6-64.5-55.2-3.1-109.9-2.6-165-2.6-55.2 0-109.9-.5-165 2.6-64 3.1-120.8 17.7-167.6 64.5C132.6 226.3 118.1 283 115 347c-3.1 55.2-2.6 109.9-2.6 165s-.5 109.9 2.6 165c3.1 64 17.7 120.8 64.5 167.6 46.9 46.9 103.6 61.4 167.6 64.5 55.2 3.1 109.9 2.6 165 2.6 55.2 0 109.9.5 165-2.6 64-3.1 120.8-17.7 167.6-64.5 46.9-46.9 61.4-103.6 64.5-167.6 3.2-55.1 2.6-109.8 2.6-165zM512 717.1c-113.5 0-205.1-91.6-205.1-205.1S398.5 306.9 512 306.9 717.1 398.5 717.1 512 625.5 717.1 512 717.1zm213.5-370.7c-26.5 0-47.9-21.4-47.9-47.9s21.4-47.9 47.9-47.9 47.9 21.4 47.9 47.9a47.84 47.84 0 01-47.9 47.9z" />
-              </svg>
-            </a>
-            <a href="https://m.blog.naver.com/ekgul1372" target="_blank">
-              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
                 viewBox="0 0 24 24"
-                fill="currentColor"
-                className="w-6 h-6 text-gray-500 hover:text-gray-600"
+                strokeWidth={2}
+                className="w-10 h-10"
               >
-                <path d="M16.273 12.845L7.376 0H0v24h7.726V11.156L16.624 24H24V0h-7.727v12.845z" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 4.5v15m0 0l6.75-6.75M12 19.5l-6.75-6.75"
+                />
               </svg>
-            </a>
+            </motion.div>
+          )}
+        </motion.div>
+      </div>
+      <div>
+        <div className="spacer"></div>
+        <div
+          style={{ willChange: "transform" }}
+          ref={container}
+          className="h-[175vh] bg-white dark:bg-black relative flex gap-[2vw] p-[2vw] box-border overflow-hidden"
+        >
+          <Column images={[images[0], images[1], images[2]]} y={y} />
+          <Column images={[images[3], images[4], images[5]]} y={y2} />
+          <Column images={[images[6], images[7], images[8]]} y={y3} />
+          <Column images={[images[9], images[10], images[11]]} y={y4} />
+        </div>
+        <div className="spacer"></div>
+      </div>
+      <div
+        style={{ height: "100dvh" }}
+        className="bg-white dark:bg-[#090908] w-full flex items-center justify-center"
+      >
+        <div className="flex items-center justify-center w-full h-full">
+          <div className="group h-96 w-80 [perspective:1000px]">
+            <div className="relative h-full w-full rounded-xl shadow-xl transition-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+              <div className="absolute inset-0">
+                <Image
+                  className="h-full w-full rounded-xl object-cover shadow-xl shadow-black/40"
+                  src={`/img/introCard.jpg`}
+                  alt="인트로"
+                  width={400}
+                  height={340}
+                />
+              </div>
+              <div className="absolute inset-0 h-full w-full rounded-xl bg-black/80 px-12 text-center text-slate-200 [transform:rotateY(180deg)] [backface-visibility:hidden]">
+                <div className="flex min-h-full flex-col items-center justify-center">
+                  <h1 className="text-3xl font-bold">환영합니다 🎉</h1>
+                  <p className="text-base pt-2 whitespace-pre-wrap">
+                    이 웹페이지는 생일을 기념하고, 그 특별한 날을 더욱 빛내주기
+                    위해 제작되었습니다.
+                  </p>
+                  <Link
+                    href={"/main"}
+                    className="mt-2 rounded-md bg-neutral-800 py-3 px-3 text-md hover:bg-neutral-900"
+                  >
+                    구경하러가기
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        {data && <GuestBookView data={data} />}
       </div>
-    </Cover>
+    </div>
   );
-}
+};
+
+export default HomePage;
