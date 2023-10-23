@@ -30,9 +30,10 @@ const Form = () => {
         />
         <input
           type="password"
-          placeholder="비밀번호"
+          placeholder="비밀번호 4자리"
           name="password"
           required
+          inputMode="numeric"
           maxLength={4}
           disabled={pending}
           className="pl-4 py-2 mt-1 focus:ring-sky-500 block w-1/2 border-neutral-300 rounded-md
