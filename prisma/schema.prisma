@@ -13,3 +13,10 @@ model Guestbook {
   password String
   created_at DateTime @default(now())
 }
+model Message {
+  id String @id @default(uuid())
+  question String
+  answer String
+
+  created_at DateTime @default(now())
+}
