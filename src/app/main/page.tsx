@@ -1,7 +1,7 @@
 import Cover from "@/components/shared/Cover";
 import Title from "@/components/shared/Title";
 import GuestBookView from "@/components/main/view";
-import { prisma } from "@/app/db";
+import prisma from "@/app/db";
 import Admin from "@/components/main/Admin";
 import Icon from "@/components/Icons/Icon";
 
