@@ -37,6 +37,7 @@ const TalkTalkView = () => {
                         <Image
                           src={"/user.png"}
                           alt="User"
+                          priority
                           width={32}
                           height={32}
                           className="rounded-full bg-gray-200"
@@ -50,6 +51,7 @@ const TalkTalkView = () => {
                     <div className="flex gap-x-2">
                       <div className="h-8 w-8 rounded-full">
                         <Image
+                          priority
                           src={"/me.png"}
                           alt="AI"
                           width={32}

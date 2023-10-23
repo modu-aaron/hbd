@@ -12,7 +12,7 @@ const Navbar = () => {
     <Disclosure as="nav">
       {({ open }) => (
         <>
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-6xl mx-auto">
             <div className="flex justify-between h-16">
               <div className="flex justify-between w-full">
                 <div className="flex items-center">
@@ -26,15 +26,15 @@ const Navbar = () => {
 
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8 sm:items-center">
                   <Link
-                    href="/"
+                    href="/main"
                     prefetch
                     className={`${
-                      pathName === "/"
+                      pathName === "/main"
                         ? "border-gray-500 dark:text-white inline-flex items-center border-b-2 text-md font-medium"
                         : ""
                     }`}
                   >
-                    Home
+                    Main
                   </Link>
                   <Link
                     href="/talktalk"
@@ -107,7 +107,7 @@ const Navbar = () => {
           <Disclosure.Panel className="sm:hidden">
             <div className="pt-2 pb-3 space-y-1">
               <Link
-                href="/"
+                href="/main"
                 prefetch
                 className={`${
                   pathName == "/"

@@ -13,11 +13,8 @@ export async function POST(req: Request) {
   const { messages } = await req.json();
 
   const response = await openai.createChatCompletion({
-    //ai모델 설정
     model: "gpt-3.5-turbo",
-    //타이핑되는 듯한 느낌 설정
     stream: true,
-    //message
     messages: messages,
   });
 

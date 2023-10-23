@@ -167,6 +167,7 @@ const Icon = {
   SubmitIcon,
   UserIcon,
   NaverIcon,
+  InstaIcon,
 };
 
 export default Icon;
