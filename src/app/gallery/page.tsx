@@ -61,7 +61,7 @@ const GalleryPage = () => {
           ) : (
             <motion.div
               key={i}
-              className="w-full h-[300px]"
+              className="w-full h-[250px] md:h-[275px] lg:h-[300px]"
               whileHover={{ scale: 1 }}
               whileTap={{ rotate: 15 }}
               initial={{ scale: 0.95 }}

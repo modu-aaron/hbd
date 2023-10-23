@@ -192,7 +192,7 @@ const HomePage = () => {
         className="bg-white dark:bg-[#090908] w-full flex items-center justify-center"
       >
         <div className="flex items-center justify-center w-full h-full">
-          <div className="group h-96 w-80 [perspective:1000px]">
+          <div className="group h-80 w-80 [perspective:1000px]">
             <div className="relative h-full w-full rounded-xl shadow-xl transition-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
               <div className="absolute inset-0">
                 <Image
