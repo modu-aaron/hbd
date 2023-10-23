@@ -39,7 +39,7 @@ const GalleryPage = () => {
   }, []);
 
   if (!images.length) {
-    return <div>loading...</div>;
+    return <div>이미지를 불러오고 있어요!</div>;
   }
 
   return (
