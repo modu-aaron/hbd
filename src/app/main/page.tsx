@@ -9,7 +9,7 @@ export default async function Home() {
     const data = await prisma.guestbook.findMany({
       take: 50,
       orderBy: {
-        created_at: "asc",
+        created_at: "desc",
       },
     });
 
