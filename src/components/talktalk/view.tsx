@@ -20,9 +20,13 @@ const TalkTalkView = () => {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
+
+  const title = (
+    <div className="flex gap-2 items-center">DaHye Bot {Icon.RobotIcon}</div>
+  );
   return (
     <Cover>
-      <Title title="DaHye Bot 🤖" />
+      <Title title={title} />
       <div className="flex flex-1 w-full space-y-2">
         <div
           className={`w-full flex-1 dark:prose-invert xl:col-span-2 pb-12 relative`}
@@ -69,10 +73,20 @@ const TalkTalkView = () => {
             </h1>
           ) : (
             <div className="w-full flex flex-col items-center gap-2 justify-center pt-8">
-              <h1 className="font-bold text-2xl text-gray-900 dark:text-white">
-                궁금한걸 질문해봐요❓
-              </h1>
-              <span>생일이라 바쁜 다롱이를 대신해 알려줄게요 😉</span>
+              <div className="flex gap-1 items-center">
+                <h1 className="font-bold text-2xl text-gray-900 dark:text-white">
+                  궁금한걸 질문해봐요
+                </h1>
+                <img
+                  width="36"
+                  height="36"
+                  src="https://img.icons8.com/bubbles/50/ask-question.png"
+                  alt="ask-question"
+                />
+              </div>
+              <span className="flex items-center">
+                생일이라 바쁜 {Icon.JakeIcon}다롱이를 대신해 알려줄게요
+              </span>
             </div>
           )}
           <form

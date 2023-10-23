@@ -3,6 +3,7 @@ import Title from "@/components/shared/Title";
 import GuestBookView from "@/components/main/view";
 import prisma from "@/lib/prisma";
 import Admin from "@/components/main/Admin";
+import Icon from "@/components/Icons/Icon";
 
 export default async function Home() {
   const getEntries = async () => {
@@ -17,9 +18,15 @@ export default async function Home() {
   };
 
   const data = await getEntries();
+
+  const title = (
+    <div className="flex items-center">
+      Today`s {Icon.SpongeIcon} DaHye BirthDay
+    </div>
+  );
   return (
     <Cover>
-      <Title title="Today`s Dahye BirthDay 🎉" />
+      <Title title={title} />
       <div className="flex flex-1 max-[700px]:flex-col space-y-2 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:space-y-0">
         <Admin />
         {data && <GuestBookView data={data} />}
