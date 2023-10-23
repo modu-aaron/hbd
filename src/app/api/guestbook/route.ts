@@ -4,12 +4,13 @@ import { prisma } from "@/app/db";
 export async function main() {
   try {
     await prisma.$connect();
+    console.log("connect");
   } catch {
     return Error("DB Connection Error");
   }
 }
 
-export const GET = async (req: Request, res: NextResponse) => {
+export const GET = async () => {
   await main();
   try {
     const data = await prisma.guestbook.findMany();
