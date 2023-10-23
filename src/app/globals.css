@@ -17,4 +17,67 @@
 ::-webkit-scrollbar {
   display: none;
   appearance: none;
+  width: none;
+}
+
+.column:nth-of-type(1) {
+  top: -45%;
+}
+.column:nth-of-type(2) {
+  top: -95%;
+}
+.column:nth-of-type(3) {
+  top: -45%;
+}
+.column:nth-of-type(4) {
+  top: -75%;
+}
+
+.card:nth-child(1) {
+  grid-column: 1 / span 2;
+  grid-row: 1;
+}
+.card:nth-child(2) {
+  grid-column: 3;
+  grid-row: 1;
+}
+.card:nth-child(3) {
+  grid-column: 1 / span 3; /* 이 부분을 수정 */
+  grid-row: 2;
+}
+
+@keyframes yoyo {
+  0% {
+    margin-top: 0;
+  }
+  50% {
+    margin-top: 20px;
+  }
+  100% {
+    margin-top: 0;
+  }
+}
+
+.pulse {
+  animation: pulse 1.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+.loadable {
+  border-radius: 1.25rem;
+  overflow: hidden;
+  margin: 0 auto;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+img {
+  display: block;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
 }
