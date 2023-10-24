@@ -3,7 +3,7 @@ import OpenAI from "openai";
 import prisma from "@/app/db";
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY!,
+  apiKey: "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",
 });
 
 export async function POST(req: Request) {
