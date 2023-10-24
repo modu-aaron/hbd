@@ -27,7 +27,7 @@ const GalleryPage = () => {
     const newImages = Array.from(
       { length: 96 },
       (_, i) =>
-        `/img/${(startingIndex + i + 1) % totalImages || totalImages}.jpg`
+        `/img/${(startingIndex + i + 1) % totalImages || totalImages}.png`
     );
     setImages((prev) => [...prev, ...newImages]);
     setPage((prev) => prev + 1);
@@ -70,6 +70,7 @@ const GalleryPage = () => {
                 src={src}
                 alt="이미지"
                 loading="lazy"
+                placeholder="blur"
                 className="w-full h-full object-cover rounded-md"
                 variants={itemVariants}
               />

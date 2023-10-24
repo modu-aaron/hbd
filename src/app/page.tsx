@@ -196,7 +196,7 @@ const HomePage = () => {
               <div className="absolute inset-0">
                 <Image
                   className="h-full w-full rounded-xl object-cover shadow-xl shadow-black/40"
-                  src={`/img/introCard.jpg`}
+                  src={`/img/introCard.png`}
                   alt="인트로"
                   width={400}
                   height={340}
