@@ -2,6 +2,8 @@ import { OpenAIStream, StreamingTextResponse } from "ai";
 import { Configuration, OpenAIApi } from "openai-edge";
 import prisma from "@/app/db";
 
+export const runtime = "edge";
+
 const config = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
