@@ -2,9 +2,13 @@ import { OpenAIStream, StreamingTextResponse } from "ai";
 import OpenAI from "openai";
 import prisma from "@/app/db";
 
+// Create an OpenAI API client (that's edge friendly!)
 const openai = new OpenAI({
-  apiKey: "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",
+  apiKey: process.env.OPENAI_API_KEY,
 });
+
+// IMPORTANT! Set the runtime to edge
+export const runtime = "edge";
 
 export async function POST(req: Request) {
   const { messages } = await req.json();
