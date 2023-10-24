@@ -7,7 +7,6 @@ import {
   MotionValue,
   useMotionValue,
   animate,
-  useAnimation,
 } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
