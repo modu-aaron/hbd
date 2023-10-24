@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Stylish } from "next/font/google";
 import Providers from "../components/Provider";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   title: "HBD",
@@ -27,7 +28,10 @@ export default function RootLayout({
         className={`${stylish.variable} font-sh bg-white dark:bg-[#090908]`}
       >
         <Providers>
-          <main>{children}</main>
+          <main>
+            {children}
+            <Analytics />
+          </main>
         </Providers>
       </body>
     </html>
