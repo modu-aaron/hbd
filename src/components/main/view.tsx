@@ -6,7 +6,6 @@ import Modal from "@/components/shared/Modal";
 import Form from "@/components/main/Form";
 import Intro from "@/components/main/Intro";
 import PaginationView from "@/components/shared/Pagination";
-import Router from "next/router";
 import { useRouter } from "next/navigation";
 export interface Data {
   data: GuestBook[];
@@ -91,19 +90,16 @@ const GuestBookView = ({ data }: Data) => {
           "Content-Type": "application/json",
         },
       });
-      const updateData = await fetch(`/api/guestbook`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      setIsDeleteOpen(false);
-      setIsDelete(false);
-      setIsMatch(false);
-      setIsTest(0);
-      await response.json();
-      data = await updateData.json();
-      router.refresh();
+
+      if (response.ok) {
+        setIsDeleteOpen(false);
+        setIsDelete(false);
+        setIsMatch(false);
+        setIsTest(0);
+        window.location.reload();
+      } else {
+        throw new Error("실패");
+      }
     } catch (error) {
       console.error(error);
     }
@@ -117,20 +113,13 @@ const GuestBookView = ({ data }: Data) => {
           "Content-Type": "application/json",
         },
       });
-      const updateData = await fetch(`/api/guestbook`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      setIsDeleteOpen(false);
-      setIsUpdate(false);
-      setIsMatch(false);
-      setIsTest(0);
-      await response.json();
-      data = await updateData.json();
-      router.refresh();
+      if (response.ok) {
+        setIsDeleteOpen(false);
+        setIsUpdate(false);
+        setIsMatch(false);
+        setIsTest(0);
+        window.location.reload();
+      }
     } catch (error) {
       console.error(error);
     }
@@ -222,34 +211,38 @@ const GuestBookView = ({ data }: Data) => {
         <div className="max-w-[600px] mx-auto">
           <Form />
           <div className="flex flex-col gap-4 items-center">
-            <div className="flex flex-col w-full min-h-[200px] space-y-2 bg-gray-50 dark:bg-gray-800 p-4 rounded-md">
-              {currentData.map((entry) => (
-                <div key={entry.id} className="w-full flex gap-2 text-base">
-                  <p className="whitespace-nowrap">{`${entry.username}:`}</p>
-                  <p className="w-full break-words">{entry.message}</p>
-                  <div className="flex gap-2">
-                    <div
-                      className="cursor-pointer"
-                      onClick={() => onClickDeleteIcon(entry)}
-                    >
-                      <Icon.DeleteIcon />
+            {data.length > 0 && (
+              <>
+                <div className="flex flex-col w-full min-h-[200px] space-y-2 bg-gray-50 dark:bg-gray-800 p-4 rounded-md">
+                  {currentData.map((entry) => (
+                    <div key={entry.id} className="w-full flex gap-2 text-base">
+                      <p className="whitespace-nowrap">{`${entry.username}:`}</p>
+                      <p className="w-full break-words">{entry.message}</p>
+                      <div className="flex gap-2">
+                        <div
+                          className="cursor-pointer"
+                          onClick={() => onClickDeleteIcon(entry)}
+                        >
+                          <Icon.DeleteIcon />
+                        </div>
+                        <div
+                          className="cursor-pointer"
+                          onClick={() => onClickUpdateIcon(entry)}
+                        >
+                          <Icon.UpdateIcon />
+                        </div>
+                      </div>
                     </div>
-                    <div
-                      className="cursor-pointer"
-                      onClick={() => onClickUpdateIcon(entry)}
-                    >
-                      <Icon.UpdateIcon />
-                    </div>
-                  </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-            <PaginationView
-              onChange={onChangePage}
-              pageSize={5}
-              current={current}
-              total={data.length}
-            />
+                <PaginationView
+                  onChange={onChangePage}
+                  pageSize={5}
+                  current={current}
+                  total={data.length}
+                />
+              </>
+            )}
           </div>
         </div>
       </div>
