@@ -90,12 +90,12 @@ const GuestBookView = ({ data }: Data) => {
           "Content-Type": "application/json",
         },
       });
-      const updateData = await fetch(`/api/guestbook`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      // const updateData = await fetch(`/api/guestbook`, {
+      //   method: "GET",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // });
       setIsDeleteOpen(false);
       setIsDelete(false);
       setIsMatch(false);
@@ -111,12 +111,6 @@ const GuestBookView = ({ data }: Data) => {
       const response = await fetch(`/api/guestbook`, {
         method: "PUT",
         body: JSON.stringify({ message, id }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const updateData = await fetch(`/api/guestbook`, {
-        method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
