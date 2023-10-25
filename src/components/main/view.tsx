@@ -83,8 +83,9 @@ const GuestBookView = ({ data }: Data) => {
 
   const onClickDeleteBtn = async (id: string) => {
     try {
-      const response = await fetch(`/api/guestbook/${id}`, {
+      const response = await fetch(`/api/guestbook`, {
         method: "DELETE",
+        body: JSON.stringify({ id }),
         headers: {
           "Content-Type": "application/json",
         },
@@ -101,9 +102,9 @@ const GuestBookView = ({ data }: Data) => {
   };
   const onClickUpdateBtn = async (id: string, message: string) => {
     try {
-      const response = await fetch(`/api/guestbook/${id}`, {
+      const response = await fetch(`/api/guestbook`, {
         method: "PUT",
-        body: JSON.stringify({ message }),
+        body: JSON.stringify({ message, id }),
         headers: {
           "Content-Type": "application/json",
         },
