@@ -21,17 +21,25 @@ const GalleryPage = () => {
   const fetchMoreImages = (numImages = 35) => {
     const totalImages = 35;
     const imageLimit = 96;
-
     const startingIndex = (((page - 1) * numImages) % totalImages) + 1;
+    let newImages: { src: string; loaded: boolean }[] = Array.from(
+      { length: 96 },
+      (_, i) => ({
+        src: `/img/${(startingIndex + i + 1) % totalImages || totalImages}.jpg`,
+        loaded: false, // 초기 로딩 상태 설정
+      })
+    );
+    const remainingSlots = imageLimit - images.length;
+    const loadableImages = Math.min(newImages.length, remainingSlots);
 
-    let newImages: { src: string; loaded: boolean }[] = [];
-
-    for (let i = 0; i < Math.min(numImages, imageLimit - images.length); i++) {
-      const imageIndex = ((startingIndex + i - 1) % totalImages) + 1;
-      newImages.push({ src: `/img/${imageIndex}.png`, loaded: true });
+    // 이미지의 로딩 상태를 업데이트
+    for (let i = 0; i < loadableImages; i++) {
+      const imageIndex = ((startingIndex + i) % totalImages) + 1;
+      newImages[i].src = `/img/${imageIndex}.png`;
+      newImages[i].loaded = true;
     }
 
-    setImages((prev) => [...prev, ...newImages]);
+    setImages((prev) => [...prev, ...newImages.slice(0, loadableImages)]);
     setPage((prev) => prev + 1);
   };
 
@@ -86,6 +94,7 @@ const GalleryPage = () => {
     </InfiniteScroll>
   );
 };
+
 const Skeleton = React.memo(() => {
   return (
     <motion.div
@@ -95,4 +104,5 @@ const Skeleton = React.memo(() => {
   );
 });
 Skeleton.displayName = "Skeleton";
+
 export default GalleryPage;
