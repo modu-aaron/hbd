@@ -9,6 +9,15 @@ import Intro from "@/components/main/Intro";
 import PaginationView from "@/components/shared/Pagination";
 export interface Data {
   data: GuestBook[];
+  getEntries: () => Promise<
+    {
+      id: string;
+      message: string;
+      username: string;
+      password: string;
+      created_at: Date;
+    }[]
+  >;
 }
 
 interface GuestBook {
@@ -19,7 +28,7 @@ interface GuestBook {
   created_at: Date;
 }
 
-const GuestBookView = ({ data }: Data) => {
+const GuestBookView = ({ data, getEntries }: Data) => {
   const [isUpdateOpen, setIsUpdateOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isMatch, setIsMatch] = useState(false);
@@ -32,7 +41,6 @@ const GuestBookView = ({ data }: Data) => {
   const [message, setMessage] = useState("");
   const [updateMsg, setUpdateMsg] = useState("");
   const confirmPwRef = useRef<HTMLInputElement | null>(null);
-  const router = useRouter();
 
   const onClickDeleteIcon = (entry: GuestBook) => {
     setIsDeleteOpen(true);
@@ -101,7 +109,7 @@ const GuestBookView = ({ data }: Data) => {
       setIsMatch(false);
       setIsTest(0);
       await response.json();
-      router.refresh();
+      await getEntries();
     } catch (error) {
       console.error(error);
     }
@@ -121,7 +129,7 @@ const GuestBookView = ({ data }: Data) => {
       setIsMatch(false);
       setIsTest(0);
       await response.json();
-      router.refresh();
+      await getEntries();
     } catch (error) {
       console.error(error);
     }

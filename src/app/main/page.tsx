@@ -16,7 +16,6 @@ export default async function Home() {
 
     return data;
   };
-  const revalidate = 0;
   const data = await getEntries();
 
   const title = (
