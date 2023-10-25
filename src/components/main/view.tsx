@@ -94,8 +94,7 @@ const GuestBookView = ({ data }: Data) => {
       setIsDelete(false);
       setIsMatch(false);
       setIsTest(0);
-      router.refresh();
-      return await response.json();
+      await response.json();
     } catch (error) {
       console.error(error);
     }
@@ -114,8 +113,7 @@ const GuestBookView = ({ data }: Data) => {
       setIsUpdate(false);
       setIsMatch(false);
       setIsTest(0);
-      router.refresh();
-      return await response.json();
+      await response.json();
     } catch (error) {
       console.error(error);
     }
