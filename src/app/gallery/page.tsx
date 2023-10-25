@@ -20,11 +20,13 @@ const GalleryPage = () => {
 
   const fetchMoreImages = (numImages = 35) => {
     const totalImages = 35;
+    const imageLimit = 96;
+
     const startingIndex = (((page - 1) * numImages) % totalImages) + 1;
 
     let newImages: { src: string; loaded: boolean }[] = [];
 
-    for (let i = 0; i < numImages; i++) {
+    for (let i = 0; i < Math.min(numImages, imageLimit - images.length); i++) {
       const imageIndex = ((startingIndex + i - 1) % totalImages) + 1;
       newImages.push({ src: `/img/${imageIndex}.png`, loaded: true });
     }
@@ -73,7 +75,6 @@ const GalleryPage = () => {
                   const newImages = [...images];
                   newImages[i].loaded = true;
                   setImages(newImages);
-                  console.log(images);
                 }}
               />
             </motion.div>
