@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import React from "react";
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
+import Image from "next/image";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -58,31 +59,20 @@ const GalleryPage = () => {
           <motion.div
             key={i}
             className={`w-full h-[250px] md:h-[275px] lg:h-[300px]`}
-            whileHover={{ scale: 1 }}
             whileTap={{ rotate: 15 }}
             initial={{
               scale: 0.95,
             }}
           >
-            {image.loaded && (
-              <motion.img
-                src={image.src}
-                alt="이미지"
-                className="w-full h-full object-cover rounded-md"
-                loading="lazy"
-                onLoad={() => {
-                  setIsLoaded(true);
-                }}
-                initial={{
-                  scale: 0.95,
-                  filter: "blur(5px)",
-                }}
-                animate={{
-                  filter: isLoaded ? "blur(0px)" : "blur(5px)",
-                  transition: { ease: "easeIn", duration: 2 },
-                }}
-              />
-            )}
+            <Image
+              src={image.src}
+              alt="이미지"
+              layout="fill"
+              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
+              placeholder="blur"
+              loading="lazy"
+              className="w-full h-full object-cover rounded-md"
+            />
           </motion.div>
         ))}
       </motion.div>
