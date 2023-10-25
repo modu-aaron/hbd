@@ -44,7 +44,7 @@ const Column = ({ images, y }: { images: string[]; y?: MotionValue }) => {
               src={`/images/${src}`}
               fill
               priority
-              alt="image"
+              alt=""
               className="object-cover"
             />
           </div>
