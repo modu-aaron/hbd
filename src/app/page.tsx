@@ -199,7 +199,7 @@ const HomePage = () => {
                   className="h-full w-full rounded-xl object-cover shadow-xl shadow-black/40"
                   src={`/img/introCard.png`}
                   alt="인트로"
-                  priority
+                  loading="eager"
                   width={400}
                   height={400}
                 />
