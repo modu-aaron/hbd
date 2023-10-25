@@ -168,7 +168,7 @@ const GuestBookView = ({ data }: Data) => {
       )}
       {isMatch && (
         <textarea
-          className="text-gray-800 dark:text-gray-100 bg-white dark:bg-gray-800 rounded-md w-2/3"
+          className="text-gray-800 min-h-[150px] dark:text-gray-100 bg-white dark:bg-gray-800 rounded-md w-2/3"
           placeholder={message}
           value={updateMsg}
           onChange={onChangeTextArea}
