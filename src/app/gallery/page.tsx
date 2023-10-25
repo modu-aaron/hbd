@@ -7,39 +7,29 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 const containerVariants = {
   hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.1 } },
-};
-const itemVariants = {
-  hidden: { opacity: 0, scale: 0.8 },
-  show: { opacity: 1, scale: 1 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.5 },
+  },
 };
 
 const GalleryPage = () => {
   const [images, setImages] = useState<{ src: string; loaded: boolean }[]>([]);
   const [page, setPage] = useState(1);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const fetchMoreImages = (numImages = 35) => {
     const totalImages = 35;
-    const imageLimit = 96;
-    const startingIndex = (((page - 1) * numImages) % totalImages) + 1;
-    let newImages: { src: string; loaded: boolean }[] = Array.from(
+    const startingIndex = (page - 1) * numImages;
+
+    const newImages: { src: string; loaded: boolean }[] = Array.from(
       { length: 96 },
       (_, i) => ({
-        src: `/img/${(startingIndex + i + 1) % totalImages || totalImages}.jpg`,
-        loaded: false, // 초기 로딩 상태 설정
+        src: `/img/${(startingIndex + i + 1) % totalImages || totalImages}.png`,
+        loaded: true,
       })
     );
-    const remainingSlots = imageLimit - images.length;
-    const loadableImages = Math.min(newImages.length, remainingSlots);
-
-    // 이미지의 로딩 상태를 업데이트
-    for (let i = 0; i < loadableImages; i++) {
-      const imageIndex = ((startingIndex + i) % totalImages) + 1;
-      newImages[i].src = `/img/${imageIndex}.png`;
-      newImages[i].loaded = true;
-    }
-
-    setImages((prev) => [...prev, ...newImages.slice(0, loadableImages)]);
+    setImages((prev) => [...prev, ...newImages]);
     setPage((prev) => prev + 1);
   };
 
@@ -56,7 +46,7 @@ const GalleryPage = () => {
       dataLength={images.length}
       next={() => fetchMoreImages(35)}
       hasMore={false}
-      loader={<h4>이미지를 불러오는 중입니다.</h4>}
+      loader={<h4>Loading...</h4>}
     >
       <motion.div
         className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
@@ -64,32 +54,37 @@ const GalleryPage = () => {
         animate="show"
         variants={containerVariants}
       >
-        {images.map((image, i) =>
-          image.loaded ? (
-            <motion.div
-              key={i}
-              className="w-full h-[250px] md:h-[275px] lg:h-[300px]"
-              whileHover={{ scale: 1 }}
-              whileTap={{ rotate: 15 }}
-              initial={{ scale: 0.95 }}
-            >
+        {images.map((image, i) => (
+          <motion.div
+            key={i}
+            className={`w-full h-[250px] md:h-[275px] lg:h-[300px]`}
+            whileHover={{ scale: 1 }}
+            whileTap={{ rotate: 15 }}
+            initial={{
+              scale: 0.95,
+            }}
+          >
+            {image.loaded && (
               <motion.img
                 src={image.src}
                 alt="이미지"
                 className="w-full h-full object-cover rounded-md"
-                variants={itemVariants}
                 loading="lazy"
                 onLoad={() => {
-                  const newImages = [...images];
-                  newImages[i].loaded = true;
-                  setImages(newImages);
+                  setIsLoaded(true);
+                }}
+                initial={{
+                  scale: 0.95,
+                  filter: "blur(5px)",
+                }}
+                animate={{
+                  filter: isLoaded ? "blur(0px)" : "blur(5px)",
+                  transition: { ease: "easeIn", duration: 2 },
                 }}
               />
-            </motion.div>
-          ) : (
-            <Skeleton key={i} />
-          )
-        )}
+            )}
+          </motion.div>
+        ))}
       </motion.div>
     </InfiniteScroll>
   );
@@ -97,10 +92,7 @@ const GalleryPage = () => {
 
 const Skeleton = React.memo(() => {
   return (
-    <motion.div
-      initial={{ scale: 0.95 }}
-      className="w-full h-[300px] bg-gray-300 animate-pulse rounded-md"
-    ></motion.div>
+    <motion.div className="w-full h-full bg-gray-300 animate-pulse rounded-md"></motion.div>
   );
 });
 Skeleton.displayName = "Skeleton";
