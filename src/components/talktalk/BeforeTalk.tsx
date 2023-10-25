@@ -11,7 +11,7 @@ const BeforeTalk = () => {
         {Icon.FinnIcon}
       </div>
       <span className="flex items-center">
-        생일이라 바쁜 다롱이{Icon.JakeIcon} 대신 알려줄게요
+        생일이라 바쁜 {Icon.JakeIcon}다롱이 대신 알려줄게요
       </span>
     </div>
   );
