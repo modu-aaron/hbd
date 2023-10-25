@@ -16,3 +16,24 @@ export const postEntry = async (formData: FormData) => {
 
   revalidatePath("/");
 };
+
+export const postUpdate = async (id: string, message: string) => {
+  "use server";
+
+  const data = await prisma.guestbook.update({
+    data: { message },
+    where: { id },
+  });
+
+  revalidatePath("/");
+};
+
+export const postDelete = async (id: string) => {
+  "use server";
+
+  const data = await prisma.guestbook.delete({
+    where: { id },
+  });
+
+  revalidatePath("/");
+};

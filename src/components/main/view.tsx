@@ -7,6 +7,7 @@ import Form from "@/components/main/Form";
 import Intro from "@/components/main/Intro";
 import PaginationView from "@/components/shared/Pagination";
 import { useRouter } from "next/navigation";
+import { postDelete, postUpdate } from "../../../api/server/main";
 export interface Data {
   data: GuestBook[];
 }
@@ -83,43 +84,22 @@ const GuestBookView = ({ data }: Data) => {
 
   const onClickDeleteBtn = async (id: string) => {
     try {
-      const response = await fetch(`/api/guestbook`, {
-        method: "DELETE",
-        body: JSON.stringify({ id }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (response.ok) {
-        setIsDeleteOpen(false);
-        setIsDelete(false);
-        setIsMatch(false);
-        setIsTest(0);
-        window.location.reload();
-      } else {
-        throw new Error("실패");
-      }
+      await postDelete(id);
+      setIsDeleteOpen(false);
+      setIsDelete(false);
+      setIsMatch(false);
+      setIsTest(0);
     } catch (error) {
       console.error(error);
     }
   };
   const onClickUpdateBtn = async (id: string, message: string) => {
     try {
-      const response = await fetch(`/api/guestbook`, {
-        method: "PUT",
-        body: JSON.stringify({ message, id }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.ok) {
-        setIsDeleteOpen(false);
-        setIsUpdate(false);
-        setIsMatch(false);
-        setIsTest(0);
-        window.location.reload();
-      }
+      await postUpdate(id, message);
+      setIsDeleteOpen(false);
+      setIsUpdate(false);
+      setIsMatch(false);
+      setIsTest(0);
     } catch (error) {
       console.error(error);
     }
