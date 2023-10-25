@@ -1,12 +1,13 @@
 "use client";
 import { useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 
 import Icon from "@/components/Icons/Icon";
 import Modal from "@/components/shared/Modal";
 import Form from "@/components/main/Form";
 import Intro from "@/components/main/Intro";
 import PaginationView from "@/components/shared/Pagination";
+import Router from "next/router";
+import { useRouter } from "next/navigation";
 export interface Data {
   data: GuestBook[];
 }
@@ -101,6 +102,7 @@ const GuestBookView = ({ data }: Data) => {
       setIsMatch(false);
       setIsTest(0);
       await response.json();
+      data = await updateData.json();
       router.refresh();
     } catch (error) {
       console.error(error);
@@ -127,6 +129,7 @@ const GuestBookView = ({ data }: Data) => {
       setIsMatch(false);
       setIsTest(0);
       await response.json();
+      data = await updateData.json();
       router.refresh();
     } catch (error) {
       console.error(error);

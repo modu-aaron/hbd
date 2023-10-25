@@ -8,7 +8,7 @@ import Icon from "@/components/Icons/Icon";
 export default async function Home() {
   const getEntries = async () => {
     const data = await prisma.guestbook.findMany({
-      take: 50,
+      take: 200,
       orderBy: {
         created_at: "desc",
       },
