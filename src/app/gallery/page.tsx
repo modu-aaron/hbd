@@ -15,23 +15,22 @@ const itemVariants = {
 };
 
 const GalleryPage = () => {
-  const [images, setImages] = useState<string[]>([]);
-  const [page, setPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
+  const [images, setImages] = useState<{ src: string; loaded: boolean }[]>([]);
+  const [page, setPage] = useState(0);
 
   const fetchMoreImages = (numImages = 35) => {
-    setIsLoading(true);
     const totalImages = 35;
-    const startingIndex = (page - 1) * numImages;
+    const startingIndex = (((page - 1) * numImages) % totalImages) + 1;
 
-    const newImages = Array.from(
-      { length: 96 },
-      (_, i) =>
-        `/img/${(startingIndex + i + 1) % totalImages || totalImages}.png`
-    );
+    let newImages: { src: string; loaded: boolean }[] = [];
+
+    for (let i = 0; i < numImages; i++) {
+      const imageIndex = ((startingIndex + i - 1) % totalImages) + 1;
+      newImages.push({ src: `/img/${imageIndex}.png`, loaded: true });
+    }
+
     setImages((prev) => [...prev, ...newImages]);
     setPage((prev) => prev + 1);
-    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -47,7 +46,7 @@ const GalleryPage = () => {
       dataLength={images.length}
       next={() => fetchMoreImages(35)}
       hasMore={false}
-      loader={<h4>Loading...</h4>}
+      loader={<h4>이미지를 불러오는 중입니다.</h4>}
     >
       <motion.div
         className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
@@ -55,10 +54,8 @@ const GalleryPage = () => {
         animate="show"
         variants={containerVariants}
       >
-        {images.map((src, i) =>
-          isLoading ? (
-            <Skeleton key={i} />
-          ) : (
+        {images.map((image, i) =>
+          image.loaded ? (
             <motion.div
               key={i}
               className="w-full h-[250px] md:h-[275px] lg:h-[300px]"
@@ -67,24 +64,34 @@ const GalleryPage = () => {
               initial={{ scale: 0.95 }}
             >
               <motion.img
-                src={src}
+                src={image.src}
                 alt="이미지"
-                loading="lazy"
-                placeholder="blur"
                 className="w-full h-full object-cover rounded-md"
                 variants={itemVariants}
+                loading="lazy"
+                onLoad={() => {
+                  const newImages = [...images];
+                  newImages[i].loaded = true;
+                  setImages(newImages);
+                  console.log(images);
+                }}
               />
             </motion.div>
+          ) : (
+            <Skeleton key={i} />
           )
         )}
       </motion.div>
     </InfiniteScroll>
   );
 };
-
 const Skeleton = React.memo(() => {
-  return <div className="w-full h-[300px] bg-gray-300 animate-pulse"></div>;
+  return (
+    <motion.div
+      initial={{ scale: 0.95 }}
+      className="w-full h-[300px] bg-gray-300 animate-pulse rounded-md"
+    ></motion.div>
+  );
 });
 Skeleton.displayName = "Skeleton";
-
 export default GalleryPage;
