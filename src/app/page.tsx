@@ -1,4 +1,5 @@
 "use client";
+import Icon from "@/components/Icons/Icon";
 import Lenis from "@studio-freight/lenis";
 import {
   useScroll,
@@ -199,21 +200,21 @@ const HomePage = () => {
                   src={`/img/introCard.png`}
                   alt="인트로"
                   width={400}
-                  height={340}
+                  height={400}
                 />
               </div>
-              <div className="absolute inset-0 h-full w-full rounded-xl bg-black/80 px-12 text-center text-slate-200 [transform:rotateY(180deg)] [backface-visibility:hidden]">
-                <div className="flex min-h-full flex-col items-center justify-center">
-                  <h1 className="text-3xl font-bold">환영합니다 🎉</h1>
-                  <p className="text-base pt-2 whitespace-pre-wrap">
-                    이 웹페이지는 생일을 기념하고, 그 특별한 날을 더욱 빛내주기
-                    위해 제작되었습니다.
+              <div className="absolute inset-0 h-full w-full rounded-xl bg-black/80 px-4 text-center text-slate-200 [transform:rotateY(180deg)] [backface-visibility:hidden]">
+                <div className="flex relative min-h-full w-full flex-col items-center justify-center">
+                  <h1 className="text-3xl font-bold">{Icon.DaramiIcon}</h1>
+                  <p className="text-base pt-4 whitespace-pre-wrap">
+                    초대에 응해주신 여러분, 환영합니다! 이 사이트가 여러분에게도
+                    특별한 경험이 되길 바랍니다.
                   </p>
                   <Link
                     href={"/main"}
-                    className="mt-2 rounded-md bg-neutral-800 py-3 px-3 text-md hover:bg-neutral-900"
+                    className="absolute bottom-6 rounded-md bg-neutral-800 py-4 px-8 text-lg hover:bg-neutral-900"
                   >
-                    구경하러가기
+                    홈으로
                   </Link>
                 </div>
               </div>
