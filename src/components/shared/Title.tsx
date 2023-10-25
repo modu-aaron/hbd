@@ -1,6 +1,6 @@
 "use client";
 
-import { startOfDay, addDays, differenceInSeconds } from "date-fns";
+import { differenceInSeconds, differenceInDays } from "date-fns";
 import { useEffect, useState } from "react";
 
 const Title = ({ title }: { title: React.ReactNode }) => {
@@ -9,15 +9,18 @@ const Title = ({ title }: { title: React.ReactNode }) => {
   useEffect(() => {
     const updateTimer = () => {
       const now = new Date();
-      const midnight = startOfDay(addDays(now, 1));
-      const remainingSecondsTotal = differenceInSeconds(midnight, now);
+      const targetDate = new Date(now.getFullYear(), 10, 1);
+      const remainingSecondsTotal = differenceInSeconds(targetDate, now);
+      const remainingDays = differenceInDays(targetDate, now);
 
       const remainingHours = Math.floor(remainingSecondsTotal / 3600);
       const remainingMinutes = Math.floor((remainingSecondsTotal % 3600) / 60);
       const remainingSeconds = remainingSecondsTotal % 60;
+      const remainingTime =
+        remainingDays > 0 ? `${remainingDays}일` : `${remainingHours}시`;
 
       setText(
-        `25살까지 ${remainingHours}시 ${remainingMinutes}분 ${remainingSeconds}초 ...`
+        `25살까지 ${remainingTime} ${remainingMinutes}분 ${remainingSeconds}초 ...`
       );
     };
 
