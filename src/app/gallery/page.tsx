@@ -17,7 +17,6 @@ const containerVariants = {
 const GalleryPage = () => {
   const [images, setImages] = useState<{ src: string; loaded: boolean }[]>([]);
   const [page, setPage] = useState(1);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   const fetchMoreImages = (numImages = 35) => {
     const totalImages = 35;
