@@ -156,7 +156,7 @@ const GuestBookView = ({ data }: Data) => {
         type="password"
         maxLength={4}
         required
-        className="w-1/2 rounded-md text-gray-800 dark:text-gray-100 bg-white dark:bg-gray-800 text-center"
+        className="w-2/3 rounded-md text-gray-800 dark:text-gray-100 bg-white dark:bg-gray-800 text-center"
         onChange={onChangePwValue}
       />
       {isTest === 4 && !isMatch ? (
@@ -168,7 +168,7 @@ const GuestBookView = ({ data }: Data) => {
       )}
       {isMatch && (
         <textarea
-          className="text-gray-800"
+          className="text-gray-800 dark:text-gray-100 bg-white dark:bg-gray-800 rounded-md w-2/3"
           placeholder={message}
           value={updateMsg}
           onChange={onChangeTextArea}
@@ -207,7 +207,7 @@ const GuestBookView = ({ data }: Data) => {
           <Form />
           {data.length > 0 && (
             <div className="flex flex-col gap-4 items-center">
-              <div className="flex flex-col w-full min-h-[184px] space-y-2 bg-gray-50 dark:bg-gray-800 p-4 rounded-md">
+              <div className="flex flex-col w-full min-h-[200px] space-y-2 bg-gray-50 dark:bg-gray-800 p-4 rounded-md">
                 {currentData.map((entry) => (
                   <div key={entry.id} className="w-full flex gap-2 text-base">
                     <p className="whitespace-nowrap">{`${entry.username}:`}</p>

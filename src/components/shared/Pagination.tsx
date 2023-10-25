@@ -29,8 +29,10 @@ const PaginationView = ({
     pageButtons.push(
       <li key={i}>
         <button
-          className={`flex items-center justify-center w-6 h-6 mr-1 rounded-full dark:bg-neutral-300 bg-sky-300/30 leading-tight ${
-            current === i ? "text-blue-600" : "text-gray-500"
+          className={`flex items-center justify-center w-6 h-6 mr-1 rounded-full dark:bg-neutral-400 bg-sky-300/30 leading-tight ${
+            current === i
+              ? "text-blue-600 dark:bg-neutral-100 bg-sky-300"
+              : "text-gray-500"
           }`}
           onClick={() => handleClick(i)}
         >
