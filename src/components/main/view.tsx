@@ -221,38 +221,36 @@ const GuestBookView = ({ data }: Data) => {
 
         <div className="max-w-[600px] mx-auto">
           <Form />
-          {data.length > 0 && (
-            <div className="flex flex-col gap-4 items-center">
-              <div className="flex flex-col w-full min-h-[200px] space-y-2 bg-gray-50 dark:bg-gray-800 p-4 rounded-md">
-                {currentData.map((entry) => (
-                  <div key={entry.id} className="w-full flex gap-2 text-base">
-                    <p className="whitespace-nowrap">{`${entry.username}:`}</p>
-                    <p className="w-full break-words">{entry.message}</p>
-                    <div className="flex gap-2">
-                      <div
-                        className="cursor-pointer"
-                        onClick={() => onClickDeleteIcon(entry)}
-                      >
-                        <Icon.DeleteIcon />
-                      </div>
-                      <div
-                        className="cursor-pointer"
-                        onClick={() => onClickUpdateIcon(entry)}
-                      >
-                        <Icon.UpdateIcon />
-                      </div>
+          <div className="flex flex-col gap-4 items-center">
+            <div className="flex flex-col w-full min-h-[200px] space-y-2 bg-gray-50 dark:bg-gray-800 p-4 rounded-md">
+              {currentData.map((entry) => (
+                <div key={entry.id} className="w-full flex gap-2 text-base">
+                  <p className="whitespace-nowrap">{`${entry.username}:`}</p>
+                  <p className="w-full break-words">{entry.message}</p>
+                  <div className="flex gap-2">
+                    <div
+                      className="cursor-pointer"
+                      onClick={() => onClickDeleteIcon(entry)}
+                    >
+                      <Icon.DeleteIcon />
+                    </div>
+                    <div
+                      className="cursor-pointer"
+                      onClick={() => onClickUpdateIcon(entry)}
+                    >
+                      <Icon.UpdateIcon />
                     </div>
                   </div>
-                ))}
-              </div>
-              <PaginationView
-                onChange={onChangePage}
-                pageSize={5}
-                current={current}
-                total={data.length}
-              />
+                </div>
+              ))}
             </div>
-          )}
+            <PaginationView
+              onChange={onChangePage}
+              pageSize={5}
+              current={current}
+              total={data.length}
+            />
+          </div>
         </div>
       </div>
       {isDelete && (
