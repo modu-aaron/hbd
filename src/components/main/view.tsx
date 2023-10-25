@@ -9,15 +9,6 @@ import Intro from "@/components/main/Intro";
 import PaginationView from "@/components/shared/Pagination";
 export interface Data {
   data: GuestBook[];
-  getEntries: () => Promise<
-    {
-      id: string;
-      message: string;
-      username: string;
-      password: string;
-      created_at: Date;
-    }[]
-  >;
 }
 
 interface GuestBook {
@@ -28,7 +19,7 @@ interface GuestBook {
   created_at: Date;
 }
 
-const GuestBookView = ({ data, getEntries }: Data) => {
+const GuestBookView = ({ data }: Data) => {
   const [isUpdateOpen, setIsUpdateOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isMatch, setIsMatch] = useState(false);
@@ -41,6 +32,7 @@ const GuestBookView = ({ data, getEntries }: Data) => {
   const [message, setMessage] = useState("");
   const [updateMsg, setUpdateMsg] = useState("");
   const confirmPwRef = useRef<HTMLInputElement | null>(null);
+  const router = useRouter();
 
   const onClickDeleteIcon = (entry: GuestBook) => {
     setIsDeleteOpen(true);
@@ -98,18 +90,18 @@ const GuestBookView = ({ data, getEntries }: Data) => {
           "Content-Type": "application/json",
         },
       });
-      // const updateData = await fetch(`/api/guestbook`, {
-      //   method: "GET",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // });
+      const updateData = await fetch(`/api/guestbook`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       setIsDeleteOpen(false);
       setIsDelete(false);
       setIsMatch(false);
       setIsTest(0);
       await response.json();
-      await getEntries();
+      router.refresh();
     } catch (error) {
       console.error(error);
     }
@@ -123,13 +115,19 @@ const GuestBookView = ({ data, getEntries }: Data) => {
           "Content-Type": "application/json",
         },
       });
+      const updateData = await fetch(`/api/guestbook`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       setIsDeleteOpen(false);
       setIsUpdate(false);
       setIsMatch(false);
       setIsTest(0);
       await response.json();
-      await getEntries();
+      router.refresh();
     } catch (error) {
       console.error(error);
     }

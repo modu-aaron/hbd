@@ -16,6 +16,8 @@ export default async function Home() {
 
     return data;
   };
+
+  const revalidate = 0;
   const data = await getEntries();
 
   const title = (
@@ -28,7 +30,7 @@ export default async function Home() {
       <Title title={title} />
       <div className="flex flex-1 max-[700px]:flex-col space-y-2 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:space-y-0">
         <Admin />
-        {data && <GuestBookView data={data} getEntries={getEntries} />}
+        {data && <GuestBookView data={data} />}
       </div>
     </Cover>
   );
