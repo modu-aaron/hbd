@@ -213,7 +213,7 @@ const HomePage = () => {
                   </p>
                   <Link
                     href={"/main"}
-                    className="absolute bottom-6 rounded-md bg-neutral-800 py-4 px-8 text-lg hover:bg-neutral-900"
+                    className="absolute bottom-6 rounded-md bg-neutral-200 py-2 px-8 text-black text-lg hover:bg-neutral-400"
                   >
                     홈으로
                   </Link>
