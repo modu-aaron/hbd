@@ -3,9 +3,6 @@ const nextConfig = {
   experimental: {
     serverActions: true,
     swcMinify: true,
-    compiler: {
-      removeConsole: true,
-    },
   },
 };
 
