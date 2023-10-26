@@ -38,7 +38,6 @@ const GuestBookView = ({ data }: Data) => {
   const [message, setMessage] = useState("");
   const [updateMsg, setUpdateMsg] = useState("");
   const confirmPwRef = useRef<HTMLInputElement | null>(null);
-  const router = useRouter();
 
   const onClickDeleteIcon = (entry: GuestBook) => {
     setIsDeleteOpen(true);
