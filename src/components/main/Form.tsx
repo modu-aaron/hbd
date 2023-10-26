@@ -2,6 +2,7 @@
 import { useRef } from "react";
 import { experimental_useFormStatus as useFormStatus } from "react-dom";
 import { postEntry } from "../../../api/server/main";
+import { toast } from "react-toastify";
 
 const Form = () => {
   const ref = useRef<HTMLFormElement>(null);
@@ -9,10 +10,25 @@ const Form = () => {
   return (
     <form
       action={async (postData) => {
-        if (ref.current) {
-          await postEntry(postData);
-          ref.current.reset();
-        }
+        const create = postEntry(postData);
+        toast
+          .promise(
+            create,
+            {
+              pending: "작성 중...",
+              success: "작성 완료!",
+              error: "에러 발생!",
+            },
+            {
+              position: toast.POSITION.TOP_CENTER,
+            }
+          )
+          .then(() => {
+            if (ref.current) ref.current.reset();
+          })
+          .catch((error) => {
+            console.error(error);
+          });
       }}
       ref={ref}
       className="flex flex-col items-center text-sm mb-5"
