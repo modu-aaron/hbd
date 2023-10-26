@@ -2,10 +2,10 @@
 
 import { revalidatePath } from "next/cache";
 import prisma from "@/app/db";
+import { PrismaClient } from "@prisma/client";
 
 export const getPost = async () => {
   "use server";
-
   const data = await prisma.guestbook.findMany({
     take: 200,
     orderBy: {
@@ -20,7 +20,6 @@ export const getPost = async () => {
 
 export const postEntry = async (formData: FormData) => {
   "use server";
-
   const data = await prisma.guestbook.create({
     data: {
       message: formData.get("entry") as string,
@@ -34,7 +33,6 @@ export const postEntry = async (formData: FormData) => {
 
 export const postUpdate = async (id: string, message: string) => {
   "use server";
-
   const data = await prisma.guestbook.update({
     data: { message },
     where: { id },
