@@ -4,21 +4,22 @@ import GuestBookView from "@/components/main/view";
 import prisma from "@/app/db";
 import Admin from "@/components/main/Admin";
 import Icon from "@/components/Icons/Icon";
+import { getPost } from "../../../api/server/main";
 
 export default async function Home() {
-  const getEntries = async () => {
-    const data = await prisma.guestbook.findMany({
-      take: 200,
-      orderBy: {
-        created_at: "desc",
-      },
-    });
+  const data = await getPost();
+  // const getEntries = async () => {
+  //   const data = await prisma.guestbook.findMany({
+  //     take: 200,
+  //     orderBy: {
+  //       created_at: "desc",
+  //     },
+  //   });
 
-    return data;
-  };
+  //   return data;
+  // };
 
-  const revalidate = 0;
-  const data = await getEntries();
+  // const data = await getEntries();
 
   const title = (
     <div className="flex items-center">

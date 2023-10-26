@@ -24,7 +24,7 @@ interface GuestBook {
 }
 
 const GuestBookView = ({ data }: Data) => {
-  const { resolvedTheme, theme } = useTheme();
+  const { resolvedTheme } = useTheme();
 
   const [isUpdateOpen, setIsUpdateOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);

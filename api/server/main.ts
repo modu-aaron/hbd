@@ -3,6 +3,21 @@
 import { revalidatePath } from "next/cache";
 import prisma from "@/app/db";
 
+export const getPost = async () => {
+  "use server";
+
+  const data = await prisma.guestbook.findMany({
+    take: 200,
+    orderBy: {
+      created_at: "desc",
+    },
+  });
+
+  revalidatePath("/");
+
+  return data;
+};
+
 export const postEntry = async (formData: FormData) => {
   "use server";
 

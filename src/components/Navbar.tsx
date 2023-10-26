@@ -36,7 +36,7 @@ const Navbar = () => {
                   >
                     Main
                   </Link>
-                  <Link
+                  {/* <Link
                     href="/talktalk"
                     prefetch
                     className={`${
@@ -46,7 +46,7 @@ const Navbar = () => {
                     }`}
                   >
                     TalkTalk
-                  </Link>
+                  </Link> */}
                   <Link
                     href="/gallery"
                     prefetch
@@ -117,7 +117,7 @@ const Navbar = () => {
               >
                 Home
               </Link>
-              <Link
+              {/* <Link
                 href="/talktalk"
                 prefetch
                 className={`${
@@ -127,7 +127,7 @@ const Navbar = () => {
                 }`}
               >
                 TalkTalk
-              </Link>
+              </Link> */}
               <Link
                 href="/gallery"
                 prefetch
