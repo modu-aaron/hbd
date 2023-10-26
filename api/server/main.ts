@@ -26,8 +26,8 @@ export const postEntry = async (formData: FormData) => {
       password: formData.get("password") as string,
     },
   });
-
   revalidatePath("/");
+  return data;
 };
 
 export const postUpdate = async (id: string, message: string) => {
@@ -38,6 +38,7 @@ export const postUpdate = async (id: string, message: string) => {
   });
 
   revalidatePath("/");
+  return data;
 };
 
 export const postDelete = async (id: string) => {
@@ -48,4 +49,5 @@ export const postDelete = async (id: string) => {
   });
 
   revalidatePath("/");
+  return data;
 };
