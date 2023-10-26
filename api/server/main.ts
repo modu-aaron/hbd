@@ -2,7 +2,6 @@
 
 import { revalidatePath } from "next/cache";
 import prisma from "@/app/db";
-import { PrismaClient } from "@prisma/client";
 
 export const getPost = async () => {
   "use server";
