@@ -8,6 +8,9 @@ import Intro from "@/components/main/Intro";
 import PaginationView from "@/components/shared/Pagination";
 import { useRouter } from "next/navigation";
 import { postDelete, postUpdate } from "../../../api/server/main";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useTheme } from "next-themes";
 export interface Data {
   data: GuestBook[];
 }
@@ -21,6 +24,8 @@ interface GuestBook {
 }
 
 const GuestBookView = ({ data }: Data) => {
+  const { resolvedTheme, theme } = useTheme();
+
   const [isUpdateOpen, setIsUpdateOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isMatch, setIsMatch] = useState(false);
@@ -83,26 +88,52 @@ const GuestBookView = ({ data }: Data) => {
   };
 
   const onClickDeleteBtn = async (id: string) => {
-    try {
-      await postDelete(id);
-      setIsDeleteOpen(false);
-      setIsDelete(false);
-      setIsMatch(false);
-      setIsTest(0);
-    } catch (error) {
-      console.error(error);
-    }
+    const deletePost = postDelete(id);
+    toast
+      .promise(
+        deletePost,
+        {
+          pending: "삭제 중...",
+          success: "삭제 완료!",
+          error: "에러 발생!",
+        },
+        {
+          position: toast.POSITION.TOP_CENTER,
+        }
+      )
+      .then(() => {
+        setIsDeleteOpen(false);
+        setIsUpdate(false);
+        setIsMatch(false);
+        setIsTest(0);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
   const onClickUpdateBtn = async (id: string, message: string) => {
-    try {
-      await postUpdate(id, message);
-      setIsDeleteOpen(false);
-      setIsUpdate(false);
-      setIsMatch(false);
-      setIsTest(0);
-    } catch (error) {
-      console.error(error);
-    }
+    const updater = postUpdate(id, message);
+    toast
+      .promise(
+        updater,
+        {
+          pending: "수정 중...",
+          success: "수정 완료!",
+          error: "에러 발생!",
+        },
+        {
+          position: toast.POSITION.TOP_CENTER,
+        }
+      )
+      .then(() => {
+        setIsDeleteOpen(false);
+        setIsUpdate(false);
+        setIsMatch(false);
+        setIsTest(0);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   const onChangePage = (page: number) => {
@@ -248,6 +279,10 @@ const GuestBookView = ({ data }: Data) => {
           {updateFooter}
         </Modal>
       )}
+      <ToastContainer
+        autoClose={2000}
+        theme={`${resolvedTheme === "dark" ? "dark" : "light"}`}
+      />
     </>
   );
 };
