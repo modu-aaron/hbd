@@ -23,7 +23,7 @@ export default async function Home() {
 
   const title = (
     <div className="flex items-center">
-      Today`s {Icon.SpongeIcon} DaHye BirthDay
+      Today is {Icon.SpongeIcon}DaHye`s BirthDay
     </div>
   );
   return (
