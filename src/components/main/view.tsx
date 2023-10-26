@@ -6,7 +6,6 @@ import Modal from "@/components/shared/Modal";
 import Form from "@/components/main/Form";
 import Intro from "@/components/main/Intro";
 import PaginationView from "@/components/shared/Pagination";
-import { useRouter } from "next/navigation";
 import { postDelete, postUpdate } from "../../../api/server/main";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
