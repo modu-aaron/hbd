@@ -6,6 +6,8 @@ import Admin from "@/components/main/Admin";
 import Icon from "@/components/Icons/Icon";
 import { getPost } from "../../../api/server/main";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const data = await getPost();
   // const getEntries = async () => {
