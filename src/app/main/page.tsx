@@ -1,27 +1,22 @@
 import Cover from "@/components/shared/Cover";
 import Title from "@/components/shared/Title";
 import GuestBookView from "@/components/main/view";
-import prisma from "@/app/db";
 import Admin from "@/components/main/Admin";
 import Icon from "@/components/Icons/Icon";
 import { getPost } from "../../../api/server/main";
+import { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
 
-export default async function Home() {
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Main",
+    description: "여러분들의 소중한 방명록을 남겨주세요!",
+  };
+}
+
+export default async function Main() {
   const data = await getPost();
-  // const getEntries = async () => {
-  //   const data = await prisma.guestbook.findMany({
-  //     take: 200,
-  //     orderBy: {
-  //       created_at: "desc",
-  //     },
-  //   });
-
-  //   return data;
-  // };
-
-  // const data = await getEntries();
 
   const title = (
     <div className="flex items-center">

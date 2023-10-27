@@ -42,40 +42,47 @@ const GalleryPage = () => {
   }
 
   return (
-    <InfiniteScroll
-      dataLength={images.length}
-      next={() => fetchMoreImages(35)}
-      hasMore={false}
-      loader={<h4>Loading...</h4>}
-    >
-      <motion.div
-        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-        initial="hidden"
-        animate="show"
-        variants={containerVariants}
+    <>
+      <head>
+        <title>Gallery</title>
+        <meta name="title" content="Gallery" />
+        <meta name="description" content="다혜 갤러리에 오신걸 환영합니다!" />
+      </head>
+      <InfiniteScroll
+        dataLength={images.length}
+        next={() => fetchMoreImages(35)}
+        hasMore={false}
+        loader={<h4>Loading...</h4>}
       >
-        {images.map((image, i) => (
-          <motion.div
-            key={i}
-            className={`w-full h-[250px] md:h-[275px] lg:h-[300px]`}
-            whileTap={{ rotate: 15 }}
-            initial={{
-              scale: 0.95,
-            }}
-          >
-            <Image
-              src={image.src}
-              alt="이미지"
-              layout="fill"
-              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
-              placeholder="blur"
-              loading="lazy"
-              className="w-full h-full object-cover rounded-md"
-            />
-          </motion.div>
-        ))}
-      </motion.div>
-    </InfiniteScroll>
+        <motion.div
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+          initial="hidden"
+          animate="show"
+          variants={containerVariants}
+        >
+          {images.map((image, i) => (
+            <motion.div
+              key={i}
+              className={`w-full h-[250px] md:h-[275px] lg:h-[300px]`}
+              whileTap={{ rotate: 15 }}
+              initial={{
+                scale: 0.95,
+              }}
+            >
+              <Image
+                src={image.src}
+                alt="이미지"
+                layout="fill"
+                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
+                placeholder="blur"
+                loading="lazy"
+                className="w-full h-full object-cover rounded-md"
+              />
+            </motion.div>
+          ))}
+        </motion.div>
+      </InfiniteScroll>
+    </>
   );
 };
 

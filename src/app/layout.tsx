@@ -24,12 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link
-          type="image/png"
-          sizes="32x32"
-          rel="icon"
-          href="/icons8-달팽이-게리-32.png"
-        />
+        <link type="image/png" sizes="32x32" rel="icon" href="/snail.png" />
       </head>
       <body
         style={{ height: "100dvh" }}
