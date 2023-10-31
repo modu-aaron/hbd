@@ -19,7 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Main() {
   const data = await getPost();
   const now = new Date();
-  const targetDate = new Date(now.getFullYear(), 9, 31);
+  const targetDate = new Date(now.getFullYear(), 10, 1);
   const diffHours = differenceInHours(now, targetDate);
 
   const title = (
