@@ -13,6 +13,13 @@ const containerVariants = {
     transition: { staggerChildren: 0.5 },
   },
 };
+const imgVariants = {
+  hidden: { opacity: 0, scale: 0.95 },
+  show: {
+    opacity: 1,
+    transition: { duration: 2 },
+  },
+};
 
 const GalleryPage = () => {
   const [images, setImages] = useState<{ src: string; loaded: boolean }[]>([]);
@@ -64,9 +71,9 @@ const GalleryPage = () => {
               key={i}
               className={`w-full h-[210px] sm:h-[210px] md:h-[300px] lg:h-[325px]`}
               whileTap={{ rotate: 15 }}
-              initial={{
-                scale: 0.95,
-              }}
+              initial="hidden"
+              animate="show"
+              variants={imgVariants}
             >
               <Image
                 src={image.src}
