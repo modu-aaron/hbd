@@ -30,8 +30,9 @@ const Title = () => {
             )}초 ...`
           : `25살이 된지 ${dayHour} ${diffMinutes}분 ${diffSeconds}초 ...`;
 
-      const titleText =
-        diffHours < 0 ? `BirthDay 🍰 is Coming` : `Today 🚀 is BirthDay`;
+      const titleText = targetDate
+        ? `BirthDay 🍰 is Coming`
+        : `Today 🚀 is BirthDay`;
       setText(remainingTime);
       setTitle(titleText);
     };
