@@ -24,7 +24,7 @@ const Title = () => {
       const dayHour =
         diffDays > 0 ? `${diffDays}일` : `${Math.abs(diffHours)}시`;
       const remainingTime =
-        diffHours < 0
+        diffHours === -0 || diffHours < 0
           ? `25살까지 ${dayHour} ${Math.abs(diffMinutes)}분 ${Math.abs(
               diffSeconds
             )}초 ...`
