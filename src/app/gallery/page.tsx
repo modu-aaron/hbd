@@ -23,19 +23,18 @@ const GalleryPage = () => {
     const startingIndex = (page - 1) * numImages;
 
     const newImages: { src: string; loaded: boolean }[] = Array.from(
-      { length: 96 },
+      { length: numImages },
       (_, i) => ({
         src: `/img/${(startingIndex + i + 1) % totalImages || totalImages}.png`,
         loaded: true,
       })
     );
     setImages((prev) => [...prev, ...newImages]);
-    setPage((prev) => prev + 1);
   };
 
   useEffect(() => {
     fetchMoreImages(35);
-  }, []);
+  }, [page]);
 
   if (!images.length) {
     return <div>이미지를 불러오고 있어요!</div>;
@@ -50,8 +49,8 @@ const GalleryPage = () => {
       </head>
       <InfiniteScroll
         dataLength={images.length}
-        next={() => fetchMoreImages(35)}
-        hasMore={false}
+        next={() => setPage((prev) => prev + 1)}
+        hasMore={true}
         loader={<h4>Loading...</h4>}
       >
         <motion.div
