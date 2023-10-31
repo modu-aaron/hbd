@@ -9,8 +9,9 @@ import {
 import { useEffect, useState } from "react";
 import Icon from "../Icons/Icon";
 
-const Title = ({ title }: { title: React.ReactNode }) => {
+const Title = () => {
   const [text, setText] = useState("");
+  const [title, setTitle] = useState("");
 
   useEffect(() => {
     const updateTimer = () => {
@@ -29,7 +30,12 @@ const Title = ({ title }: { title: React.ReactNode }) => {
             )}초 ...`
           : `25살이 된지 ${dayHour} ${diffMinutes}분 ${diffSeconds}초 ...`;
 
-      setText(`${remainingTime}`);
+      const titleText =
+        diffHours < 0
+          ? `DaHye BirthDay 🍰 is Coming`
+          : `Today 🚀 is  DaHye's BirthDay`;
+      setText(remainingTime);
+      setTitle(titleText);
     };
 
     updateTimer();

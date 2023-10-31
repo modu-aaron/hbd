@@ -27,7 +27,7 @@ const TalkTalkView = () => {
   );
   return (
     <Cover>
-      <Title title={title} />
+      <Title />
       <div className="flex flex-1 w-full space-y-2">
         <div
           className={`w-full flex-1 dark:prose-invert xl:col-span-2 pb-12 relative`}
