@@ -23,12 +23,7 @@ const Title = () => {
       const diffDays = differenceInDays(now, targetDate);
       const dayHour =
         diffDays > 0 ? `${diffDays}일` : `${Math.abs(diffHours)}시`;
-      const remainingTime =
-        diffHours === -0 && targetDate
-          ? `25살까지 ${dayHour} ${Math.abs(diffMinutes)}분 ${Math.abs(
-              diffSeconds
-            )}초 ...`
-          : `25살이 된지 ${dayHour} ${diffMinutes}분 ${diffSeconds}초 ...`;
+      const remainingTime = `25살이 된지 ${dayHour} ${diffMinutes}분 ${diffSeconds}초 ...`;
 
       const titleText = targetDate
         ? `BirthDay 🍰 is Coming`
