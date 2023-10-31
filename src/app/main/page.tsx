@@ -5,6 +5,7 @@ import Admin from "@/components/main/Admin";
 import Icon from "@/components/Icons/Icon";
 import { getPost } from "../../../api/server/main";
 import { Metadata } from "next";
+import { differenceInHours } from "date-fns";
 
 export const dynamic = "force-dynamic";
 
@@ -17,10 +18,15 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function Main() {
   const data = await getPost();
+  const now = new Date();
+  const targetDate = new Date(now.getFullYear(), 9, 31);
+  const diffHours = differenceInHours(now, targetDate);
 
   const title = (
     <div className="flex items-center">
-      Today is {Icon.SpongeIcon}DaHye`s BirthDay
+      {diffHours < 0
+        ? `DaHye BirthDay 🍰 is Coming`
+        : `Today 🚀 is  DaHye's BirthDay`}
     </div>
   );
   return (
