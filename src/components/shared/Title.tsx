@@ -31,9 +31,7 @@ const Title = () => {
           : `25살이 된지 ${dayHour} ${diffMinutes}분 ${diffSeconds}초 ...`;
 
       const titleText =
-        diffHours < 0
-          ? `DaHye's BirthDay 🍰 is Coming`
-          : `Today 🚀 is  DaHye's BirthDay`;
+        diffHours < 0 ? `BirthDay 🍰 is Coming` : `Today 🚀 is BirthDay`;
       setText(remainingTime);
       setTitle(titleText);
     };
@@ -47,7 +45,7 @@ const Title = () => {
   return (
     <div className="flex flex-col space-y-2 py-5">
       <h1
-        className="text-2xl flex items-center font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl
+        className="text-2xl flex whitespace-pre items-center font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl
   sm:leading-10 md:text-4xl md:leading-13"
       >
         {title}

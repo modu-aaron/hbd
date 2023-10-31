@@ -62,7 +62,7 @@ const GalleryPage = () => {
           {images.map((image, i) => (
             <motion.div
               key={i}
-              className={`w-full h-[250px] md:h-[275px] lg:h-[300px]`}
+              className={`w-full h-[210px] sm:h-[210px] md:h-[300px] lg:h-[325px]`}
               whileTap={{ rotate: 15 }}
               initial={{
                 scale: 0.95,
@@ -75,7 +75,7 @@ const GalleryPage = () => {
                 blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
                 placeholder="blur"
                 loading="lazy"
-                className="w-full h-full object-cover rounded-md"
+                className="object-cover rounded-md"
               />
             </motion.div>
           ))}
