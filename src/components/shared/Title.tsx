@@ -47,7 +47,7 @@ const Title = () => {
   return (
     <div className="flex flex-col space-y-2 py-5">
       <h1
-        className="text-2xl flex font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl
+        className="text-2xl flex items-center font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl
   sm:leading-10 md:text-4xl md:leading-13"
       >
         {title}
