@@ -20,6 +20,7 @@ const TalkTalkView = () => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
+    console.log("test");
   }, [messages]);
 
   const title = (
