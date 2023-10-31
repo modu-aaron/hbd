@@ -32,7 +32,7 @@ const Title = () => {
 
       const titleText =
         diffHours < 0
-          ? `DaHye BirthDay 🍰 is Coming`
+          ? `DaHye's BirthDay 🍰 is Coming`
           : `Today 🚀 is  DaHye's BirthDay`;
       setText(remainingTime);
       setTitle(titleText);
