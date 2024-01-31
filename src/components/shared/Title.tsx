@@ -5,29 +5,20 @@ import {
   differenceInDays,
   differenceInHours,
   differenceInMinutes,
+  format,
 } from "date-fns";
 import { useEffect, useState } from "react";
 import Icon from "../Icons/Icon";
 
 const Title = () => {
   const [text, setText] = useState("");
-  const [title, setTitle] = useState("");
-
+  const title = `환영합니다 😃`;
   useEffect(() => {
     const updateTimer = () => {
-      const now = new Date();
-      const targetDate = new Date(now.getFullYear(), 10, 1);
-      const diffHours = differenceInHours(now, targetDate);
-      const diffMinutes = differenceInMinutes(now, targetDate) % 60;
-      const diffSeconds = differenceInSeconds(now, targetDate) % 60;
-      const diffDays = differenceInDays(now, targetDate);
-      const dayHour =
-        diffDays > 0 ? `${diffDays}일` : `${Math.abs(diffHours)}시`;
-      const remainingTime = `25살이 된지 ${dayHour} ${diffMinutes}분 ${diffSeconds}초 ...`;
+      const date = new Date();
+      const currentTime = format(date, "yyyy.MM.dd HH:mm:ss");
 
-      const titleText = `Today 🚀 is BirthDay`;
-      setText(remainingTime);
-      setTitle(titleText);
+      setText(currentTime);
     };
 
     updateTimer();
